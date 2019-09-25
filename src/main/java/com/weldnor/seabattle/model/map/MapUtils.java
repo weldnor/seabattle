@@ -1,62 +1,6 @@
 package com.weldnor.seabattle.model.map;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-
 public class MapUtils {
-
-    public static List<Cell> findShip(Map map, Cell cell) {
-        List<Cell> result = new ArrayList<>();
-
-        //проверяем, что тип клетки - корабль
-        if (cell.getType() != CellType.Ship)
-            return result;
-
-        Stack<Cell> stack = new Stack<>();
-        stack.push(cell);
-
-        while (!stack.isEmpty()) {
-            Cell currect = stack.pop();
-
-            if (result.contains(currect))
-                continue;
-
-            result.add(currect);
-
-            int cx = currect.getPoint().getX();
-            int cy = currect.getPoint().getY();
-
-            if (cx + 1 < map.size() && map.getCell(cx + 1, cy).getType() == CellType.Ship)
-                stack.push(map.getCell(cx + 1, cy));
-
-            if (cx - 1 >= 0 && map.getCell(cx - 1, cy).getType() == CellType.Ship)
-                stack.push(map.getCell(cx - 1, cy));
-
-            if (cy + 1 < map.size() && map.getCell(cx, cy + 1).getType() == CellType.Ship)
-                stack.push(map.getCell(cx, cy + 1));
-
-            if (cy - 1 >= 0 && map.getCell(cx, cy - 1).getType() == CellType.Ship)
-                stack.push(map.getCell(cx, cy - 1));
-        }
-        return result;
-    }
-
-
-    public static List<List<Cell>> findAllShips(Map map) {
-        List<List<Cell>> ships = new ArrayList<>();
-
-        List<Cell> shipCells = map.findCells(CellType.Ship);
-
-        while (!shipCells.isEmpty()) {
-            List<Cell> ship = findShip(map, shipCells.get(0));
-            for (Cell cell : ship)
-                shipCells.remove(cell);
-
-            ships.add(ship);
-        }
-        return ships;
-    }
 
     public static Map reverse(Map map) {
         Map result = (Map) map.clone();
