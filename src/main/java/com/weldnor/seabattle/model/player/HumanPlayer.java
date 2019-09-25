@@ -1,4 +1,5 @@
 package com.weldnor.seabattle.model.player;
 
-public class HumanPlayer {
+public class HumanPlayer implements Player {
+
 }
