@@ -1,6 +1,7 @@
 package com.weldnor.seabattle.model;
 
 import com.weldnor.seabattle.model.map.Map;
+import com.weldnor.seabattle.model.player.BotPlayer;
 import com.weldnor.seabattle.model.player.Player;
 
 public class Game {
@@ -13,26 +14,22 @@ public class Game {
     public Game(Player firstPlayer, Player secondPlayer) {
         this.firstPlayer = firstPlayer;
         this.secondPlayer = secondPlayer;
-
-        firstPlayerMap = firstPlayer.makeMap();
-        secondPlayerMap = secondPlayer.makeMap();
     }
 
     public void start() {
-        firstPlayerMap = firstPlayer.makeMap();
-        secondPlayerMap = secondPlayer.makeMap();
-    }
+        if (firstPlayer instanceof BotPlayer) {
+            firstPlayerMap = ((BotPlayer) firstPlayer).makeMap();
+        }
+        //TODO: проверка корректности карт
+        //TODO: обработка HumanPlayer
 
-    public Player getFirstPlayer() {
-        return firstPlayer;
+        if (secondPlayer instanceof BotPlayer) {
+            secondPlayerMap = ((BotPlayer) secondPlayer).makeMap();
+        }
     }
 
     public void setFirstPlayer(Player firstPlayer) {
         this.firstPlayer = firstPlayer;
-    }
-
-    public Player getSecondPlayer() {
-        return secondPlayer;
     }
 
     public void setSecondPlayer(Player secondPlayer) {
