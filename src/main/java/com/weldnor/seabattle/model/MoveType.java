@@ -1,5 +1,5 @@
 package com.weldnor.seabattle.model;
 
 public enum MoveType {
-    Norral, SelectShip, SelectMine
+    Normal, SelectShip, SelectMine
 }
