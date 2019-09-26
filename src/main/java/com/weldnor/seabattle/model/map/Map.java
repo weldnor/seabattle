@@ -131,24 +131,32 @@ public class Map implements Cloneable {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                Cell curr = getCell(i, j);
-                switch (curr.getType()) {
+
+                Cell cell = getCell(i, j);
+                char correctChar = 0;
+
+                switch (cell.getType()) {
                     case Water:
-                        builder.append('w');
+                        correctChar = 'W';
                         break;
                     case Mine:
-                        builder.append('m');
+                        correctChar = 'M';
                         break;
                     case Ship:
-                        builder.append('s');
+                        correctChar = 'S';
                         break;
                     case Minesweeper:
-                        builder.append('M');
+                        correctChar = 'T';
                         break;
                     case Hidden:
-                        builder.append('h');
+                        correctChar = 'H';
                         break;
                 }
+
+                if (cell.isDestroyed())
+                    correctChar = Character.toLowerCase(correctChar);
+
+                builder.append(correctChar);
             }
             builder.append("\n");
         }
