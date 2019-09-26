@@ -1,5 +1,9 @@
 package com.weldnor.seabattle.model.map;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class MapUtils {
 
     public static Map reverse(Map map) {
@@ -15,7 +19,7 @@ public class MapUtils {
         return result;
     }
 
-    public static boolean isValide(Map map) {
+    public static boolean isValid(Map map) {
         //проверяем размер карты
         if (map.size() != 10)
             return false;
@@ -124,5 +128,62 @@ public class MapUtils {
         //проверить размеры кораблей
 
         return true;
+    }
+
+    public static Map loadMapFromString(String string) {
+        Scanner scanner = new Scanner(string);
+
+        Map map = new Map();
+
+        for (int i = 0; i < map.size(); i++) {
+            String line = scanner.nextLine();
+
+            for (int j = 0; j < map.size(); j++) {
+                Cell cell = map.getCell(i, j);
+                char c = line.charAt(j);
+
+                if (Character.isLowerCase(c))
+                    cell.setDestroyed(true);
+
+                c = Character.toLowerCase(c);
+
+                switch (c) {
+                    case 'w':
+                        cell.setType(CellType.Water);
+                        break;
+                    case 'm':
+                        cell.setType(CellType.Mine);
+                        break;
+                    case 's':
+                        cell.setType(CellType.Ship);
+                        break;
+                    case 't':
+                        cell.setType(CellType.Minesweeper);
+                        break;
+                    case 'h':
+                        cell.setType(CellType.Hidden);
+                        break;
+                }
+            }
+        }
+        return map;
+    }
+
+    public static Map loadMapFromFile(String path) {
+        File file = new File(path).getAbsoluteFile();
+        StringBuilder builder = new StringBuilder();
+
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                builder.append(scanner.nextLine());
+                builder.append('\n');
+            }
+            return loadMapFromString(builder.toString());
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
