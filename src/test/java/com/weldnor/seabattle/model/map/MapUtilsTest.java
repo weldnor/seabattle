@@ -3,8 +3,6 @@ package com.weldnor.seabattle.model.map;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class MapUtilsTest {
@@ -14,32 +12,40 @@ public class MapUtilsTest {
     @Before
     public void setUp() throws Exception {
         map = new Map();
-        map.getCell(0, 0).setType(CellType.Ship);
-        map.getCell(0, 1).setType(CellType.Ship);
-        map.getCell(0, 2).setType(CellType.Ship);
 
-        map.getCell(0, 0).setDestroyed(true);
+        //первый корабль
+        for (int i = 0; i < 3; i++)
+            map.getCell(0, i).setType(CellType.Ship);
 
-        map.getCell(5, 5).setType(CellType.Mine);
+        map.getCell(0, 2).setDestroyed(true);
+        map.getCell(0, 2).setDestroyed(true);
+
+        //второй корабль
+        for (int i = 0; i < 4; i++)
+            map.getCell(i, 7).setType(CellType.Ship);
+
+        //мины
+        map.getCell(6, 8).setType(CellType.Mine);
+        map.getCell(6, 8).setDestroyed(true);
+
+        map.getCell(4, 5).setType(CellType.Mine);
+
+        //минный тральщик
+        map.getCell(3, 3).setType(CellType.Minesweeper);
 
     }
 
     @Test
-    public void testReverse() {
+    public void Reverse_NotDestroyedShipCell_IsHiddenCell() {
         Map reverseMap = MapUtils.reverse(map);
-        assertThat(reverseMap.getCell(0, 0).getType()).isEqualTo(CellType.Ship);
-        assertThat(reverseMap.getCell(0, 0).isDestroyed()).isTrue();
-        assertThat(reverseMap.getCell(0, 1).getType()).isEqualTo(CellType.Hidden);
-        assertThat(reverseMap.getCell(0, 1).isDestroyed()).isFalse();
-        assertThat(reverseMap.getCell(5, 5).getType()).isEqualTo(CellType.Hidden);
+        Cell cell = map.getCell(0, 0);
+        assertThat(cell.getType()).isEqualTo(CellType.Hidden);
     }
 
     @Test
-    public void testFindShip() {
-        List<Cell> ship = MapUtils.findShip(map, map.getCell(0, 0));
-        assertThat(ship).containsOnly(
-                map.getCell(0, 0),
-                map.getCell(0, 1),
-                map.getCell(0, 2));
+    public void Reverse_DestroyedMineCell_IsSameCell() {
+        Map reverseMap = MapUtils.reverse(map);
+        Cell cell = map.getCell(6, 8);
+        assertThat(cell.getType()).isEqualTo(CellType.Mine);
     }
 }
