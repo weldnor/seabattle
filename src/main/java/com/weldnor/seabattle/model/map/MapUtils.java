@@ -49,6 +49,10 @@ public class MapUtils {
                     case Hidden:
                         return false;
                 }
+
+                //проверяем, что клетка не уничтоженна
+                if (cell.isDestroyed())
+                    return false;
             }
         }
 
