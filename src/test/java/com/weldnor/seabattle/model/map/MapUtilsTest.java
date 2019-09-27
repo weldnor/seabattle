@@ -96,4 +96,10 @@ public class MapUtilsTest {
         Map map = MapUtils.loadMapFromFile("src/test/resources/maps/with_destroyed_cells.txt");
         assertThat(MapUtils.isValid(map)).isFalse();
     }
+
+    @Test
+    public void IsValid_IncorrectSizeOfShips_ReturnsFalse() {
+        Map map = MapUtils.loadMapFromFile("src/test/resources/maps/incorrect_size_of_ships.txt");
+        assertThat(MapUtils.isValid(map)).isFalse();
+    }
 }

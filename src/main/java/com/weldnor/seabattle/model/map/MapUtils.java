@@ -2,6 +2,7 @@ package com.weldnor.seabattle.model.map;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Scanner;
 
 public class MapUtils {
@@ -128,10 +129,34 @@ public class MapUtils {
             }
         }
 
-        //TODO
-        //проверить размеры кораблей
+        //проверяем корабли на корректный размер
+        int l1 = 0, l2 = 0, l3 = 0, l4 = 0;
+        List<List<Cell>> ships = map.findAllShips();
 
-        return true;
+        //проверяем число кораблей
+        if (ships.size() != 10)
+            return false;
+
+        for (List<Cell> ship : ships) {
+            switch (ship.size()) {
+                case 1:
+                    l1++;
+                    break;
+                case 2:
+                    l2++;
+                    break;
+                case 3:
+                    l3++;
+                    break;
+                case 4:
+                    l4++;
+                    break;
+                default:
+                    return false;
+            }
+        }
+
+        return l1 == 4 && l2 == 3 && (l3 == 2 || l4 == 1);
     }
 
     public static Map loadMapFromString(String string) {
