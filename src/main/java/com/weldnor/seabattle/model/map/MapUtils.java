@@ -159,6 +159,17 @@ public class MapUtils {
         return l1 == 4 && l2 == 3 && (l3 == 2 || l4 == 1);
     }
 
+    public static boolean isEnd(Map map) {
+        List<List<Cell>> ships = map.findAllShips();
+
+        for (List<Cell> ship : ships)
+            for (Cell cell : ship)
+                if (!cell.isDestroyed())
+                    return false;
+
+        return true;
+    }
+
     public static Map loadMapFromString(String string) {
         Scanner scanner = new Scanner(string);
 

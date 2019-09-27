@@ -102,4 +102,23 @@ public class MapUtilsTest {
         Map map = MapUtils.loadMapFromFile("src/test/resources/is_valid_maps/incorrect_size_of_ships.txt");
         assertThat(MapUtils.isValid(map)).isFalse();
     }
+
+    @Test
+    public void IsEnd_Begin_ReturnsFalse() {
+        Map map = MapUtils.loadMapFromFile("src/test/resources/is_end_maps/begin.txt");
+        assertThat(MapUtils.isEnd(map)).isFalse();
+    }
+
+    @Test
+    public void IsEnd_SameShipsDestroyed_ReturnsFalse() {
+        Map map = MapUtils.loadMapFromFile("src/test/resources/is_end_maps/same_ships_destroyed.txt");
+        assertThat(MapUtils.isEnd(map)).isFalse();
+    }
+
+    @Test
+    public void IsEnd_End_ReturnsTrue() {
+        Map map = MapUtils.loadMapFromFile("src/test/resources/is_end_maps/end.txt");
+        assertThat(MapUtils.isEnd(map)).isTrue();
+    }
+
 }
