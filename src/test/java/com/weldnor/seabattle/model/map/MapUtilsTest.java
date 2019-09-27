@@ -51,55 +51,55 @@ public class MapUtilsTest {
 
     @Test
     public void IsValid_CorrectMap_ReturnsTrue() {
-        Map map = MapUtils.loadMapFromFile("src/test/resources/maps/correct.txt");
+        Map map = MapUtils.loadMapFromFile("src/test/resources/is_valid_maps/correct.txt");
         assertThat(MapUtils.isValid(map)).isTrue();
     }
 
     @Test
     public void IsValid_WithoutShips_ReturnsFalse() {
-        Map map = MapUtils.loadMapFromFile("src/test/resources/maps/without_ships.txt");
+        Map map = MapUtils.loadMapFromFile("src/test/resources/is_valid_maps/without_ships.txt");
         assertThat(MapUtils.isValid(map)).isFalse();
     }
 
     @Test
     public void IsValid_IncorrectPlacementOfShips_ReturnsFalse() {
-        Map map = MapUtils.loadMapFromFile("src/test/resources/maps/incorrect_placement_of_ships.txt");
+        Map map = MapUtils.loadMapFromFile("src/test/resources/is_valid_maps/incorrect_placement_of_ships.txt");
         assertThat(MapUtils.isValid(map)).isFalse();
     }
 
     @Test
     public void IsValid_IncorrectPlacementOfMine_ReturnsFalse() {
-        Map map = MapUtils.loadMapFromFile("src/test/resources/maps/incorrect_placement_of_mine.txt");
+        Map map = MapUtils.loadMapFromFile("src/test/resources/is_valid_maps/incorrect_placement_of_mine.txt");
         assertThat(MapUtils.isValid(map)).isFalse();
     }
 
     @Test
     public void IsValid_IncorrectPlacementOfMinesweeper_ReturnsFalse() {
-        Map map = MapUtils.loadMapFromFile("src/test/resources/maps/incorrect_placement_of_minesweeper.txt");
+        Map map = MapUtils.loadMapFromFile("src/test/resources/is_valid_maps/incorrect_placement_of_minesweeper.txt");
         assertThat(MapUtils.isValid(map)).isFalse();
     }
 
     @Test
     public void IsValid_ReducedNumberOfShips_ReturnsFalse() {
-        Map map = MapUtils.loadMapFromFile("src/test/resources/maps/reduced_number_of_ships.txt");
+        Map map = MapUtils.loadMapFromFile("src/test/resources/is_valid_maps/reduced_number_of_ships.txt");
         assertThat(MapUtils.isValid(map)).isFalse();
     }
 
     @Test
     public void IsValid_IncreasedNumberOfShips_ReturnsFalse() {
-        Map map = MapUtils.loadMapFromFile("src/test/resources/maps/increased_number_of_ships.txt");
+        Map map = MapUtils.loadMapFromFile("src/test/resources/is_valid_maps/increased_number_of_ships.txt");
         assertThat(MapUtils.isValid(map)).isFalse();
     }
 
     @Test
     public void IsValid_WithDestroyedCells_ReturnsFalse() {
-        Map map = MapUtils.loadMapFromFile("src/test/resources/maps/with_destroyed_cells.txt");
+        Map map = MapUtils.loadMapFromFile("src/test/resources/is_valid_maps/with_destroyed_cells.txt");
         assertThat(MapUtils.isValid(map)).isFalse();
     }
 
     @Test
     public void IsValid_IncorrectSizeOfShips_ReturnsFalse() {
-        Map map = MapUtils.loadMapFromFile("src/test/resources/maps/incorrect_size_of_ships.txt");
+        Map map = MapUtils.loadMapFromFile("src/test/resources/is_valid_maps/incorrect_size_of_ships.txt");
         assertThat(MapUtils.isValid(map)).isFalse();
     }
 }
