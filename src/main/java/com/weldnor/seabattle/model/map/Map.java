@@ -38,7 +38,7 @@ public class Map implements Cloneable {
     }
 
     //метод находит все клетки корабля, в котором есть заданная клетка
-    private List<Cell> findShip(Cell cell) {
+    public List<Cell> findShip(Cell cell) {
         List<Cell> result = new ArrayList<>();
 
         //проверяем, что тип клетки - корабль
@@ -88,6 +88,25 @@ public class Map implements Cloneable {
             ships.add(ship);
         }
         return ships;
+    }
+
+    public List<Cell> getNeighboringCells(Cell cell) {
+        List<Cell> cells = new ArrayList<>();
+
+        int x = cell.getPoint().getX();
+        int y = cell.getPoint().getY();
+
+        if (x + 1 < size()) cells.add(getCell(x + 1, y));
+        if (x - 1 >= 0) cells.add(getCell(x - 1, y));
+        if (y + 1 < size()) cells.add(getCell(x, y + 1));
+        if (y - 1 >= 0) cells.add(getCell(x, y - 1));
+
+        if (x + 1 < size() && y + 1 < size()) cells.add(getCell(x + 1, y + 1));
+        if (x - 1 >= 0 && y + 1 < size()) cells.add(getCell(x - 1, y + 1));
+        if (x + 1 < size() && y - 1 >= 0) cells.add(getCell(x + 1, y - 1));
+        if (x - 1 >= 0 && y - 1 >= 0) cells.add(getCell(x - 1, y - 1));
+
+        return cells;
     }
 
     public int size() {

@@ -2,6 +2,7 @@ package com.weldnor.seabattle.model.map;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -168,6 +169,65 @@ public class MapUtils {
                     return false;
 
         return true;
+    }
+
+    public static void FireInCell(Map map, Point point) {
+        int x = point.getX();
+        int y = point.getY();
+
+        assert x >= 0 && x < 10;
+        assert y >= 0 && y < 10;
+
+        Cell cell = map.getCell(x, y);
+
+        assert cell.getType() != CellType.Hidden;
+
+        switch (cell.getType()) {
+            case Water: {
+                cell.setDestroyed(true);
+                break;
+            }
+            case Mine:
+            case Minesweeper: {
+                cell.setDestroyed(true);
+
+                List<Cell> neighboringCells = map.getNeighboringCells(cell);
+
+                for (Cell neighboringCell : neighboringCells)
+                    neighboringCell.setDestroyed(true);
+
+                break;
+            }
+            case Ship: {
+                cell.setDestroyed(true);
+
+                List<Cell> ship = map.findShip(cell);
+                List<Cell> waterCells = new ArrayList<>();
+
+                //проверяем, что корабль полностью уничтожен
+                for (Cell shipCell : ship) {
+                    if (!shipCell.equals(cell) && !shipCell.isDestroyed())
+                        break;
+                }
+
+                for (Cell shipCell : ship) {
+                    List<Cell> neighboringCells = map.getNeighboringCells(shipCell);
+                    for (Cell neighboringCell : neighboringCells) {
+                        if (neighboringCell.getType() == CellType.Water && !waterCells.contains(neighboringCell)) {
+                            waterCells.add(neighboringCell);
+                        }
+                    }
+                }
+
+
+                for (Cell waterCell : waterCells)
+                    waterCell.setDestroyed(true);
+
+                break;
+            }
+
+
+        }
     }
 
     public static Map loadMapFromString(String string) {

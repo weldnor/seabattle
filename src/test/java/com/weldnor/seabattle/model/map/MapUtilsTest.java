@@ -3,6 +3,10 @@ package com.weldnor.seabattle.model.map;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class MapUtilsTest {
@@ -23,6 +27,13 @@ public class MapUtilsTest {
         //второй корабль
         for (int i = 0; i < 4; i++)
             map.getCell(i, 7).setType(CellType.Ship);
+
+        //третий корабль
+        for (int i = 2; i < 5; i++) {
+            Cell cell = map.getCell(8, i);
+            cell.setType(CellType.Ship);
+            if (i != 4) cell.setDestroyed(true);
+        }
 
         //мины
         map.getCell(6, 8).setType(CellType.Mine);
@@ -121,4 +132,60 @@ public class MapUtilsTest {
         assertThat(MapUtils.isEnd(map)).isTrue();
     }
 
+    @Test
+    public void FireInCell_Mine() {
+        Cell mine = map.getCell(4, 5);
+        MapUtils.FireInCell(map, mine.getPoint());
+
+        assertThat(mine.isDestroyed()).isTrue();
+        assertThat(map.getNeighboringCells(mine))
+                .filteredOn(Cell::isDestroyed)
+                .hasSize(8);
+    }
+
+    @Test
+    public void FireInCell_Minesweeper() {
+        Cell minesweeper = map.getCell(3, 3);
+        MapUtils.FireInCell(map, minesweeper.getPoint());
+
+        assertThat(minesweeper.isDestroyed()).isTrue();
+        assertThat(map.getNeighboringCells(minesweeper))
+                .filteredOn(Cell::isDestroyed)
+                .hasSize(8);
+    }
+
+    @Test
+    public void FireInCell_NotDestroyedShip_ShouldDestroyOneCell() {
+        Cell shipCell = map.getCell(0, 7);
+        MapUtils.FireInCell(map, shipCell.getPoint());
+
+        assertThat(map.findShip(shipCell))
+                .filteredOn(Cell::isDestroyed)
+                .hasSize(1);
+    }
+
+    @Test
+    public void FireInCell_AlmostDestroyedShip_ShouldDestroyAllShip() {
+        Cell target = map.getCell(8, 4);
+        List<Cell> ship = map.findShip(target);
+
+        Set<Cell> waterCells = new HashSet<>();
+
+        for (Cell shipCell : ship) {
+            List<Cell> neighboringCells = map.getNeighboringCells(shipCell);
+            for (Cell neighboringCell : neighboringCells)
+                if (neighboringCell.getType() == CellType.Water)
+                    waterCells.add(neighboringCell);
+        }
+
+        MapUtils.FireInCell(map, target.getPoint());
+
+        assertThat(ship)
+                .filteredOn(Cell::isDestroyed)
+                .hasSize(3);
+
+        assertThat(waterCells)
+                .filteredOn(Cell::isDestroyed)
+                .hasSize(12);
+    }
 }
