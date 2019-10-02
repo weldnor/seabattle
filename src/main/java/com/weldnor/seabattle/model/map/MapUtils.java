@@ -286,4 +286,17 @@ public class MapUtils {
         }
         return null;
     }
+
+    public static Map loadMapFromResource(String path) {
+        Scanner scanner = new Scanner(MapUtils.class.getResourceAsStream(path));
+
+        StringBuilder builder = new StringBuilder();
+
+        while (scanner.hasNextLine()) {
+            builder.append(scanner.nextLine());
+            builder.append('\n');
+        }
+
+        return MapUtils.loadMapFromString(builder.toString());
+    }
 }
