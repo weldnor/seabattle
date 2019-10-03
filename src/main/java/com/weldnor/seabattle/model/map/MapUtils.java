@@ -207,7 +207,7 @@ public class MapUtils {
                 //проверяем, что корабль полностью уничтожен
                 for (Cell shipCell : ship) {
                     if (!shipCell.equals(cell) && !shipCell.isDestroyed())
-                        break;
+                        return;
                 }
 
                 for (Cell shipCell : ship) {
@@ -298,5 +298,18 @@ public class MapUtils {
         }
 
         return MapUtils.loadMapFromString(builder.toString());
+    }
+
+    public static Map loadMapFromConsole() {
+        Scanner scanner = new Scanner(System.in);
+
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < 10; i++) {
+            builder.append(scanner.nextLine());
+            builder.append('\n');
+        }
+
+        return loadMapFromString(builder.toString());
     }
 }

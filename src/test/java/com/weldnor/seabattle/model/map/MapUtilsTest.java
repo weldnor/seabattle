@@ -49,7 +49,7 @@ public class MapUtilsTest {
     @Test
     public void Reverse_NotDestroyedShipCell_IsHiddenCell() {
         Map reverseMap = MapUtils.reverse(map);
-        Cell cell = map.getCell(0, 0);
+        Cell cell = reverseMap.getCell(0, 0);
         assertThat(cell.getType()).isEqualTo(CellType.Hidden);
     }
 
