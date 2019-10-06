@@ -60,7 +60,6 @@ public class MapTest {
     @Test
     public void GetNeighboringCells_InCorner() {
         List<Cell> cells = map.getNeighboringCells(map.getCell(0, 0));
-        System.out.println(cells);
         assertThat(cells).containsOnly(
                 map.getCell(0, 1),
                 map.getCell(1, 0),
@@ -71,7 +70,6 @@ public class MapTest {
     @Test
     public void GetNeighboringCells_InCenter() {
         List<Cell> cells = map.getNeighboringCells(map.getCell(3, 6));
-        System.out.println(cells);
         assertThat(cells).containsOnly(
                 map.getCell(2, 5), map.getCell(2, 6),
                 map.getCell(2, 7), map.getCell(3, 5),
