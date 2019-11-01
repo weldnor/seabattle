@@ -11,7 +11,7 @@ public class SimpleBotPlayer implements BotPlayer {
     private Random random = new Random();
 
     @Override
-    public Point makeMove(Map ownMap, Map enemyMap, MoveType moveType) {
+    public Point makeMove(GameMap ownMap, GameMap enemyMap, MoveType moveType) {
         if (moveType == MoveType.Normal) {
             int x = random.nextInt(enemyMap.size());
             int y = random.nextInt(enemyMap.size());
@@ -32,7 +32,7 @@ public class SimpleBotPlayer implements BotPlayer {
     }
 
     @Override
-    public Map makeMap() {
-        return MapUtils.loadMapFromResource("/maps/1.txt");
+    public GameMap makeMap() {
+        return GameMapUtils.loadMapFromResource("/maps/1.txt");
     }
 }

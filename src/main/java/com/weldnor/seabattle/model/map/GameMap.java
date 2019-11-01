@@ -5,13 +5,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
-public class Map implements Cloneable {
+public class GameMap implements Cloneable {
 
     private final int SIZE = 10;
 
     private Cell[][] cells;
 
-    public Map() {
+    public GameMap() {
         cells = new Cell[SIZE][SIZE];
 
         for (int i = 0; i < SIZE; i++)
@@ -19,7 +19,7 @@ public class Map implements Cloneable {
                 cells[i][j] = new Cell(false, CellType.Water, new Point(i, j));
     }
 
-    private Map(Cell[][] cells) {
+    private GameMap(Cell[][] cells) {
         this.cells = cells;
     }
 
@@ -126,7 +126,7 @@ public class Map implements Cloneable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Map map = (Map) o;
+        GameMap map = (GameMap) o;
 
         if (SIZE != map.SIZE) return false;
         return Arrays.deepEquals(cells, map.cells);
@@ -149,7 +149,7 @@ public class Map implements Cloneable {
             }
         }
 
-        return new Map(newCells);
+        return new GameMap(newCells);
     }
 
     @Override

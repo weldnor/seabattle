@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class MapUtils {
+public class GameMapUtils {
 
-    public static Map reverse(Map map) {
-        Map result = (Map) map.clone();
+    public static GameMap reverse(GameMap map) {
+        GameMap result = (GameMap) map.clone();
         for (int i = 0; i < map.size(); i++) {
             for (int j = 0; j < map.size(); j++) {
                 //смотрим клетки, которые не уничтоженны, и меняем их тип на hidden;
@@ -21,7 +21,7 @@ public class MapUtils {
         return result;
     }
 
-    public static boolean isValid(Map map) {
+    public static boolean isValid(GameMap map) {
         //проверяем размер карты
         if (map.size() != 10)
             return false;
@@ -160,7 +160,7 @@ public class MapUtils {
         return l1 == 4 && l2 == 3 && (l3 == 2 || l4 == 1);
     }
 
-    public static boolean isEnd(Map map) {
+    public static boolean isEnd(GameMap map) {
         List<List<Cell>> ships = map.findAllShips();
 
         for (List<Cell> ship : ships)
@@ -171,7 +171,7 @@ public class MapUtils {
         return true;
     }
 
-    public static void FireInCell(Map map, Point point) {
+    public static void FireInCell(GameMap map, Point point) {
         int x = point.getX();
         int y = point.getY();
 
@@ -230,10 +230,10 @@ public class MapUtils {
         }
     }
 
-    public static Map loadMapFromString(String string) {
+    public static GameMap loadMapFromString(String string) {
         Scanner scanner = new Scanner(string);
 
-        Map map = new Map();
+        GameMap map = new GameMap();
 
         for (int i = 0; i < map.size(); i++) {
             String line = scanner.nextLine();
@@ -269,7 +269,7 @@ public class MapUtils {
         return map;
     }
 
-    public static Map loadMapFromFile(String path) {
+    public static GameMap loadMapFromFile(String path) {
         File file = new File(path).getAbsoluteFile();
         StringBuilder builder = new StringBuilder();
 
@@ -287,8 +287,8 @@ public class MapUtils {
         return null;
     }
 
-    public static Map loadMapFromResource(String path) {
-        Scanner scanner = new Scanner(MapUtils.class.getResourceAsStream(path));
+    public static GameMap loadMapFromResource(String path) {
+        Scanner scanner = new Scanner(GameMapUtils.class.getResourceAsStream(path));
 
         StringBuilder builder = new StringBuilder();
 
@@ -297,10 +297,10 @@ public class MapUtils {
             builder.append('\n');
         }
 
-        return MapUtils.loadMapFromString(builder.toString());
+        return GameMapUtils.loadMapFromString(builder.toString());
     }
 
-    public static Map loadMapFromConsole() {
+    public static GameMap loadMapFromConsole() {
         Scanner scanner = new Scanner(System.in);
 
         StringBuilder builder = new StringBuilder();

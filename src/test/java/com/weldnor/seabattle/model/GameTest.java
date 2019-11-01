@@ -1,7 +1,7 @@
 package com.weldnor.seabattle.model;
 
-import com.weldnor.seabattle.model.map.Map;
-import com.weldnor.seabattle.model.map.MapUtils;
+import com.weldnor.seabattle.model.map.GameMap;
+import com.weldnor.seabattle.model.map.GameMapUtils;
 import com.weldnor.seabattle.model.map.Point;
 import com.weldnor.seabattle.model.player.BotPlayer;
 import org.junit.Before;
@@ -14,17 +14,17 @@ public class GameTest {
 
     private BotPlayer firstPlayer;
     private BotPlayer secondPlayer;
-    private Map firstPlayerMap;
-    private Map secondPlayerMap;
+    private GameMap firstPlayerMap;
+    private GameMap secondPlayerMap;
     private Game game;
 
     @Before
     public void setUp() throws Exception {
         firstPlayer = mock(BotPlayer.class);
-        firstPlayerMap = MapUtils.loadMapFromResource("/valid_maps/1.txt");
+        firstPlayerMap = GameMapUtils.loadMapFromResource("/valid_maps/1.txt");
 
         secondPlayer = mock(BotPlayer.class);
-        secondPlayerMap = MapUtils.loadMapFromResource("/valid_maps/2.txt");
+        secondPlayerMap = GameMapUtils.loadMapFromResource("/valid_maps/2.txt");
 
         game = new Game(firstPlayer, secondPlayer);
         game.setFirstPlayerMap(firstPlayerMap);
@@ -33,7 +33,7 @@ public class GameTest {
 
     @Test
     public void MakeMove_NormalAndFireToWater_Normal() {
-        when(firstPlayer.makeMove(any(Map.class), any(Map.class), eq(MoveType.Normal)))
+        when(firstPlayer.makeMove(any(GameMap.class), any(GameMap.class), eq(MoveType.Normal)))
                 .thenReturn(new Point(0, 0));
 
         game.makeMoveByBot();
@@ -44,7 +44,7 @@ public class GameTest {
 
     @Test
     public void MakeMove_NormalAndFireToMine_SelectShip() {
-        when(firstPlayer.makeMove(any(Map.class), any(Map.class), eq(MoveType.Normal)))
+        when(firstPlayer.makeMove(any(GameMap.class), any(GameMap.class), eq(MoveType.Normal)))
                 .thenReturn(new Point(2, 6));
 
         game.makeMoveByBot();
@@ -55,7 +55,7 @@ public class GameTest {
 
     @Test
     public void MakeMove_NormalAndFireToMinesweeper_SelectMine() {
-        when(firstPlayer.makeMove(any(Map.class), any(Map.class), eq(MoveType.Normal)))
+        when(firstPlayer.makeMove(any(GameMap.class), any(GameMap.class), eq(MoveType.Normal)))
                 .thenReturn(new Point(0, 9));
 
         game.makeMoveByBot();
@@ -65,7 +65,7 @@ public class GameTest {
 
     @Test
     public void MakeMove_NormalAndFireToShip_Normal() {
-        when(firstPlayer.makeMove(any(Map.class), any(Map.class), eq(MoveType.Normal)))
+        when(firstPlayer.makeMove(any(GameMap.class), any(GameMap.class), eq(MoveType.Normal)))
                 .thenReturn(new Point(4, 0));
 
         game.makeMoveByBot();
@@ -75,10 +75,10 @@ public class GameTest {
 
     @Test
     public void MakeMove_SelectMine_Normal() {
-        when(firstPlayer.makeMove(any(Map.class), any(Map.class), eq(MoveType.Normal)))
+        when(firstPlayer.makeMove(any(GameMap.class), any(GameMap.class), eq(MoveType.Normal)))
                 .thenReturn(new Point(0, 9));
 
-        when(firstPlayer.makeMove(any(Map.class), any(Map.class), eq(MoveType.SelectMine)))
+        when(firstPlayer.makeMove(any(GameMap.class), any(GameMap.class), eq(MoveType.SelectMine)))
                 .thenReturn(new Point(5, 3));
 
         game.makeMoveByBot();
@@ -90,10 +90,10 @@ public class GameTest {
 
     @Test
     public void MakeMove_SelectShip_Normal() {
-        when(firstPlayer.makeMove(any(Map.class), any(Map.class), eq(MoveType.Normal)))
+        when(firstPlayer.makeMove(any(GameMap.class), any(GameMap.class), eq(MoveType.Normal)))
                 .thenReturn(new Point(2, 6));
 
-        when(firstPlayer.makeMove(any(Map.class), any(Map.class), eq(MoveType.SelectShip)))
+        when(firstPlayer.makeMove(any(GameMap.class), any(GameMap.class), eq(MoveType.SelectShip)))
                 .thenReturn(new Point(0, 0));
 
         game.makeMoveByBot();

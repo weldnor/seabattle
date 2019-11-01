@@ -9,13 +9,13 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MapUtilsTest {
+public class GameMapUtilsTest {
 
-    private Map map;
+    private GameMap map;
 
     @Before
     public void setUp() throws Exception {
-        map = new Map();
+        map = new GameMap();
 
         //первый корабль
         for (int i = 0; i < 3; i++)
@@ -48,94 +48,94 @@ public class MapUtilsTest {
 
     @Test
     public void Reverse_NotDestroyedShipCell_IsHiddenCell() {
-        Map reverseMap = MapUtils.reverse(map);
+        GameMap reverseMap = GameMapUtils.reverse(map);
         Cell cell = reverseMap.getCell(0, 0);
         assertThat(cell.getType()).isEqualTo(CellType.Hidden);
     }
 
     @Test
     public void Reverse_DestroyedMineCell_IsSameCell() {
-        Map reverseMap = MapUtils.reverse(map);
+        GameMap reverseMap = GameMapUtils.reverse(map);
         Cell cell = map.getCell(6, 8);
         assertThat(cell.getType()).isEqualTo(CellType.Mine);
     }
 
     @Test
     public void IsValid_CorrectMap_ReturnsTrue() {
-        Map map = MapUtils.loadMapFromFile("src/test/resources/is_valid_maps/correct.txt");
-        assertThat(MapUtils.isValid(map)).isTrue();
+        GameMap map = GameMapUtils.loadMapFromFile("src/test/resources/is_valid_maps/correct.txt");
+        assertThat(GameMapUtils.isValid(map)).isTrue();
     }
 
     @Test
     public void IsValid_WithoutShips_ReturnsFalse() {
-        Map map = MapUtils.loadMapFromFile("src/test/resources/is_valid_maps/without_ships.txt");
-        assertThat(MapUtils.isValid(map)).isFalse();
+        GameMap map = GameMapUtils.loadMapFromFile("src/test/resources/is_valid_maps/without_ships.txt");
+        assertThat(GameMapUtils.isValid(map)).isFalse();
     }
 
     @Test
     public void IsValid_IncorrectPlacementOfShips_ReturnsFalse() {
-        Map map = MapUtils.loadMapFromFile("src/test/resources/is_valid_maps/incorrect_placement_of_ships.txt");
-        assertThat(MapUtils.isValid(map)).isFalse();
+        GameMap map = GameMapUtils.loadMapFromFile("src/test/resources/is_valid_maps/incorrect_placement_of_ships.txt");
+        assertThat(GameMapUtils.isValid(map)).isFalse();
     }
 
     @Test
     public void IsValid_IncorrectPlacementOfMine_ReturnsFalse() {
-        Map map = MapUtils.loadMapFromFile("src/test/resources/is_valid_maps/incorrect_placement_of_mine.txt");
-        assertThat(MapUtils.isValid(map)).isFalse();
+        GameMap map = GameMapUtils.loadMapFromFile("src/test/resources/is_valid_maps/incorrect_placement_of_mine.txt");
+        assertThat(GameMapUtils.isValid(map)).isFalse();
     }
 
     @Test
     public void IsValid_IncorrectPlacementOfMinesweeper_ReturnsFalse() {
-        Map map = MapUtils.loadMapFromFile("src/test/resources/is_valid_maps/incorrect_placement_of_minesweeper.txt");
-        assertThat(MapUtils.isValid(map)).isFalse();
+        GameMap map = GameMapUtils.loadMapFromFile("src/test/resources/is_valid_maps/incorrect_placement_of_minesweeper.txt");
+        assertThat(GameMapUtils.isValid(map)).isFalse();
     }
 
     @Test
     public void IsValid_ReducedNumberOfShips_ReturnsFalse() {
-        Map map = MapUtils.loadMapFromFile("src/test/resources/is_valid_maps/reduced_number_of_ships.txt");
-        assertThat(MapUtils.isValid(map)).isFalse();
+        GameMap map = GameMapUtils.loadMapFromFile("src/test/resources/is_valid_maps/reduced_number_of_ships.txt");
+        assertThat(GameMapUtils.isValid(map)).isFalse();
     }
 
     @Test
     public void IsValid_IncreasedNumberOfShips_ReturnsFalse() {
-        Map map = MapUtils.loadMapFromFile("src/test/resources/is_valid_maps/increased_number_of_ships.txt");
-        assertThat(MapUtils.isValid(map)).isFalse();
+        GameMap map = GameMapUtils.loadMapFromFile("src/test/resources/is_valid_maps/increased_number_of_ships.txt");
+        assertThat(GameMapUtils.isValid(map)).isFalse();
     }
 
     @Test
     public void IsValid_WithDestroyedCells_ReturnsFalse() {
-        Map map = MapUtils.loadMapFromFile("src/test/resources/is_valid_maps/with_destroyed_cells.txt");
-        assertThat(MapUtils.isValid(map)).isFalse();
+        GameMap map = GameMapUtils.loadMapFromFile("src/test/resources/is_valid_maps/with_destroyed_cells.txt");
+        assertThat(GameMapUtils.isValid(map)).isFalse();
     }
 
     @Test
     public void IsValid_IncorrectSizeOfShips_ReturnsFalse() {
-        Map map = MapUtils.loadMapFromFile("src/test/resources/is_valid_maps/incorrect_size_of_ships.txt");
-        assertThat(MapUtils.isValid(map)).isFalse();
+        GameMap map = GameMapUtils.loadMapFromFile("src/test/resources/is_valid_maps/incorrect_size_of_ships.txt");
+        assertThat(GameMapUtils.isValid(map)).isFalse();
     }
 
     @Test
     public void IsEnd_Begin_ReturnsFalse() {
-        Map map = MapUtils.loadMapFromFile("src/test/resources/is_end_maps/begin.txt");
-        assertThat(MapUtils.isEnd(map)).isFalse();
+        GameMap map = GameMapUtils.loadMapFromFile("src/test/resources/is_end_maps/begin.txt");
+        assertThat(GameMapUtils.isEnd(map)).isFalse();
     }
 
     @Test
     public void IsEnd_SameShipsDestroyed_ReturnsFalse() {
-        Map map = MapUtils.loadMapFromFile("src/test/resources/is_end_maps/same_ships_destroyed.txt");
-        assertThat(MapUtils.isEnd(map)).isFalse();
+        GameMap map = GameMapUtils.loadMapFromFile("src/test/resources/is_end_maps/same_ships_destroyed.txt");
+        assertThat(GameMapUtils.isEnd(map)).isFalse();
     }
 
     @Test
     public void IsEnd_End_ReturnsTrue() {
-        Map map = MapUtils.loadMapFromFile("src/test/resources/is_end_maps/end.txt");
-        assertThat(MapUtils.isEnd(map)).isTrue();
+        GameMap map = GameMapUtils.loadMapFromFile("src/test/resources/is_end_maps/end.txt");
+        assertThat(GameMapUtils.isEnd(map)).isTrue();
     }
 
     @Test
     public void FireInCell_Mine() {
         Cell mine = map.getCell(4, 5);
-        MapUtils.FireInCell(map, mine.getPoint());
+        GameMapUtils.FireInCell(map, mine.getPoint());
 
         assertThat(mine.isDestroyed()).isTrue();
         assertThat(map.getNeighboringCells(mine))
@@ -146,7 +146,7 @@ public class MapUtilsTest {
     @Test
     public void FireInCell_Minesweeper() {
         Cell minesweeper = map.getCell(3, 3);
-        MapUtils.FireInCell(map, minesweeper.getPoint());
+        GameMapUtils.FireInCell(map, minesweeper.getPoint());
 
         assertThat(minesweeper.isDestroyed()).isTrue();
         assertThat(map.getNeighboringCells(minesweeper))
@@ -157,7 +157,7 @@ public class MapUtilsTest {
     @Test
     public void FireInCell_NotDestroyedShip_ShouldDestroyOneCell() {
         Cell shipCell = map.getCell(0, 7);
-        MapUtils.FireInCell(map, shipCell.getPoint());
+        GameMapUtils.FireInCell(map, shipCell.getPoint());
 
         assertThat(map.findShip(shipCell))
                 .filteredOn(Cell::isDestroyed)
@@ -178,7 +178,7 @@ public class MapUtilsTest {
                     waterCells.add(neighboringCell);
         }
 
-        MapUtils.FireInCell(map, target.getPoint());
+        GameMapUtils.FireInCell(map, target.getPoint());
 
         assertThat(ship)
                 .filteredOn(Cell::isDestroyed)

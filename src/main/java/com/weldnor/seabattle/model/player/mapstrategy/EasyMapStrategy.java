@@ -1,10 +1,10 @@
 package com.weldnor.seabattle.model.player.mapstrategy;
 
-import com.weldnor.seabattle.model.map.Map;
+import com.weldnor.seabattle.model.map.GameMap;
 
 public class EasyMapStrategy implements MapStrategy {
     @Override
-    public Map makeMap() {
+    public GameMap makeMap() {
         return null;
     }
 }

@@ -7,13 +7,13 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MapTest {
+public class GameMapTest {
 
-    private Map map;
+    private GameMap map;
 
     @Before
     public void setUp() throws Exception {
-        map = new Map();
+        map = new GameMap();
 
         //первый корабль
         for (int i = 0; i < 3; i++)

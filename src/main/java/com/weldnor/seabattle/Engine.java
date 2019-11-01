@@ -1,7 +1,7 @@
 package com.weldnor.seabattle;
 
 import com.weldnor.seabattle.model.Game;
-import com.weldnor.seabattle.model.map.MapUtils;
+import com.weldnor.seabattle.model.map.GameMapUtils;
 import com.weldnor.seabattle.model.map.Point;
 import com.weldnor.seabattle.model.player.BotPlayer;
 import com.weldnor.seabattle.model.player.HumanPlayer;
@@ -42,11 +42,11 @@ public class Engine {
 
         switch (mode) {
             case 1:
-                game.setFirstPlayerMap(MapUtils.loadMapFromConsole());
-                game.setSecondPlayerMap(MapUtils.loadMapFromConsole());
+                game.setFirstPlayerMap(GameMapUtils.loadMapFromConsole());
+                game.setSecondPlayerMap(GameMapUtils.loadMapFromConsole());
                 break;
             case 2:
-                game.setFirstPlayerMap(MapUtils.loadMapFromConsole());
+                game.setFirstPlayerMap(GameMapUtils.loadMapFromConsole());
                 game.setSecondPlayerMap(((BotPlayer) secondPlayer).makeMap());
         }
     }
@@ -79,7 +79,7 @@ public class Engine {
                         .toString()
                         .split("\n");
 
-                String[] enemyMapLines = MapUtils.reverse(game.getCurrentEnemyMap())
+                String[] enemyMapLines = GameMapUtils.reverse(game.getCurrentEnemyMap())
                         .toString()
                         .split("\n");
 

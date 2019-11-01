@@ -1,7 +1,7 @@
 package com.weldnor.seabattle.model.player;
 
 import com.weldnor.seabattle.model.MoveType;
-import com.weldnor.seabattle.model.map.Map;
+import com.weldnor.seabattle.model.map.GameMap;
 import com.weldnor.seabattle.model.map.Point;
 import com.weldnor.seabattle.model.player.mapstrategy.MapStrategy;
 import com.weldnor.seabattle.model.player.movestrategy.MoveStrategy;
@@ -17,12 +17,12 @@ public class StrategyBotPlayer implements BotPlayer {
     }
 
     @Override
-    public Point makeMove(Map ownMap, Map enemyMap, MoveType moveType) {
+    public Point makeMove(GameMap ownMap, GameMap enemyMap, MoveType moveType) {
         return moveStrategy.makeMove(ownMap, enemyMap, moveType);
     }
 
     @Override
-    public Map makeMap() {
+    public GameMap makeMap() {
         return mapStrategy.makeMap();
     }
 
