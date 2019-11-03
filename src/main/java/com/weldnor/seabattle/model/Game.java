@@ -7,26 +7,21 @@ import com.weldnor.seabattle.model.player.Player;
 import java.util.List;
 
 public class Game {
-    private MoveType currentMoveType;
-    private Player firstPlayer;
-    private Player secondPlayer;
-    private Player currentPlayer;
-    private GameMap firstPlayerMap;
-    private GameMap secondPlayerMap;
 
+    private GameState state = new GameState();
 
     public Game(Player firstPlayer, Player secondPlayer) {
-        this.firstPlayer = firstPlayer;
-        this.secondPlayer = secondPlayer;
-        this.currentPlayer = firstPlayer;
-        this.currentMoveType = MoveType.Normal;
+        state.setFirstPlayer(firstPlayer);
+        state.setSecondPlayer(secondPlayer);
+        state.setCurrentPlayer(firstPlayer);
+        state.setCurrentMoveType(MoveType.Normal);
     }
 
     private void swapPlayer() {
-        if (currentPlayer == firstPlayer) {
-            currentPlayer = secondPlayer;
+        if (state.getCurrentPlayer() == state.getFirstPlayer()) {
+            state.setCurrentPlayer(state.getSecondPlayer());
         } else {
-            currentPlayer = firstPlayer;
+            state.setCurrentPlayer(state.getFirstPlayer());
         }
     }
 
@@ -37,7 +32,7 @@ public class Game {
         int x = point.getX();
         int y = point.getY();
 
-        if (currentMoveType == MoveType.Normal) {
+        if (state.getCurrentMoveType() == MoveType.Normal) {
             Cell cell = enemyMap.getCell(x, y);
 
             if (cell.isDestroyed()) {
@@ -47,14 +42,14 @@ public class Game {
             switch (cell.getType()) {
                 case Water:
                     GameMapUtils.FireInCell(enemyMap, point);
-                    currentMoveType = MoveType.Normal;
+                    state.setCurrentMoveType(MoveType.Normal);
                     swapPlayer();
                     break;
 
 
                 case Mine:
                     GameMapUtils.FireInCell(enemyMap, point);
-                    currentMoveType = MoveType.SelectShip;
+                    state.setCurrentMoveType(MoveType.SelectShip);
                     break;
 
 
@@ -64,12 +59,12 @@ public class Game {
                     List<Cell> mines = ownMap.findCells(CellType.Mine);
                     for (Cell mine : mines) {
                         if (!mine.isDestroyed()) {
-                            currentMoveType = MoveType.SelectMine;
+                            state.setCurrentMoveType(MoveType.SelectMine);
                             return;
                         }
                     }
                     //если все мины уничтоженны
-                    currentMoveType = MoveType.Normal;
+                    state.setCurrentMoveType(MoveType.Normal);
                     swapPlayer();
                     break;
 
@@ -78,19 +73,19 @@ public class Game {
                     GameMapUtils.FireInCell(enemyMap, point);
                     break;
             }
-        } else if (currentMoveType == MoveType.SelectMine) {
+        } else if (state.getCurrentMoveType() == MoveType.SelectMine) {
             Cell cell = ownMap.getCell(x, y);
             assert cell.getType() == CellType.Mine && !cell.isDestroyed();
 
             GameMapUtils.FireInCell(ownMap, point);
-            currentMoveType = MoveType.Normal;
+            state.setCurrentMoveType(MoveType.Normal);
             swapPlayer();
-        } else if (currentMoveType == MoveType.SelectShip) {
+        } else if (state.getCurrentMoveType() == MoveType.SelectShip) {
             Cell cell = ownMap.getCell(x, y);
             assert cell.getType() == CellType.Ship && !cell.isDestroyed();
 
             GameMapUtils.FireInCell(ownMap, point);
-            currentMoveType = MoveType.Normal;
+            state.setCurrentMoveType(MoveType.Normal);
             swapPlayer();
         }
     }
@@ -99,8 +94,8 @@ public class Game {
         GameMap ownMap = getCurrentPlayerMap();
         GameMap enemyMap = getCurrentEnemyMap();
 
-        BotPlayer player = (BotPlayer) currentPlayer;
-        Point move = player.makeMove(ownMap, enemyMap, currentMoveType);
+        BotPlayer player = (BotPlayer) state.getCurrentPlayer();
+        Point move = player.makeMove(ownMap, enemyMap, state.getCurrentMoveType());
         makeMove(move);
     }
 
@@ -109,46 +104,46 @@ public class Game {
     }
 
     public boolean isEnd() {
-        return GameMapUtils.isEnd(firstPlayerMap) || GameMapUtils.isEnd(secondPlayerMap);
+        return GameMapUtils.isEnd(state.getFirstPlayerMap()) || GameMapUtils.isEnd(state.getSecondPlayerMap());
     }
 
     public GameMap getCurrentPlayerMap() {
-        return currentPlayer == firstPlayer ? firstPlayerMap : secondPlayerMap;
+        return state.getCurrentPlayerMap();
     }
 
     public GameMap getCurrentEnemyMap() {
-        return currentPlayer == firstPlayer ? secondPlayerMap : firstPlayerMap;
+        return state.getCurrentEnemyMap();
     }
 
     public MoveType getCurrentMoveType() {
-        return currentMoveType;
+        return state.getCurrentMoveType();
     }
 
     public Player getFirstPlayer() {
-        return firstPlayer;
+        return state.getFirstPlayer();
     }
 
     public Player getSecondPlayer() {
-        return secondPlayer;
+        return state.getSecondPlayer();
     }
 
     public Player getCurrentPlayer() {
-        return currentPlayer;
+        return state.getCurrentPlayer();
     }
 
     public GameMap getFirstPlayerMap() {
-        return firstPlayerMap;
+        return state.getFirstPlayerMap();
     }
 
     public void setFirstPlayerMap(GameMap firstPlayerMap) {
-        this.firstPlayerMap = firstPlayerMap;
+        state.setFirstPlayerMap(firstPlayerMap);
     }
 
     public GameMap getSecondPlayerMap() {
-        return secondPlayerMap;
+        return state.getSecondPlayerMap();
     }
 
     public void setSecondPlayerMap(GameMap secondPlayerMap) {
-        this.secondPlayerMap = secondPlayerMap;
+        state.setSecondPlayerMap(secondPlayerMap);
     }
 }
