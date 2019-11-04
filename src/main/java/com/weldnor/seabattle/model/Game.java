@@ -146,4 +146,12 @@ public class Game {
     public void setSecondPlayerMap(GameMap secondPlayerMap) {
         state.setSecondPlayerMap(secondPlayerMap);
     }
+
+    public GameState getState() {
+        return state;
+    }
+
+    public void setState(GameState state) {
+        this.state = state;
+    }
 }
