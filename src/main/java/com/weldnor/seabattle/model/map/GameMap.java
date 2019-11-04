@@ -121,6 +121,10 @@ public class GameMap implements Cloneable {
         return cells[x][y];
     }
 
+    public Cell getCell(Point point) {
+        return cells[point.getX()][point.getY()];
+    }
+
     public void setCell(int x, int y, Cell cell) {
         cells[x][y] = cell;
     }
@@ -132,7 +136,6 @@ public class GameMap implements Cloneable {
 
         GameMap map = (GameMap) o;
 
-        if (SIZE != SIZE) return false;
         return Arrays.deepEquals(cells, map.cells);
     }
 
