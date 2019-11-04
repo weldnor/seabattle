@@ -1,14 +1,18 @@
 package com.weldnor.seabattle.model.map;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
 public class GameMap implements Cloneable {
+    private static final int SIZE = 10;
 
-    private final int SIZE = 10;
-
+    @JsonSerialize
+    @JsonDeserialize
     private Cell[][] cells;
 
     public GameMap() {
@@ -128,7 +132,7 @@ public class GameMap implements Cloneable {
 
         GameMap map = (GameMap) o;
 
-        if (SIZE != map.SIZE) return false;
+        if (SIZE != SIZE) return false;
         return Arrays.deepEquals(cells, map.cells);
     }
 
