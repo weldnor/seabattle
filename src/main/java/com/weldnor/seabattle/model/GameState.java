@@ -1,75 +1,64 @@
 package com.weldnor.seabattle.model;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonSetter;
 import com.weldnor.seabattle.model.map.GameMap;
 import com.weldnor.seabattle.model.player.Player;
 
 public class GameState {
-    private MoveType currentMoveType;
     private Player firstPlayer;
     private Player secondPlayer;
     private GameMap firstPlayerMap;
     private GameMap secondPlayerMap;
     private int currentPlayerIndex = 1;
+    private MoveType currentMoveType = MoveType.Normal;
 
-    @JsonGetter
+    public GameState() {
+    }
+
     public MoveType getCurrentMoveType() {
         return currentMoveType;
     }
 
-    @JsonSetter
     public void setCurrentMoveType(MoveType currentMoveType) {
         this.currentMoveType = currentMoveType;
     }
 
-    @JsonGetter
     public Player getFirstPlayer() {
         return firstPlayer;
     }
 
-    @JsonSetter
     public void setFirstPlayer(Player firstPlayer) {
         this.firstPlayer = firstPlayer;
     }
 
-    @JsonGetter
     public Player getSecondPlayer() {
         return secondPlayer;
     }
 
-    @JsonSetter
     public void setSecondPlayer(Player secondPlayer) {
         this.secondPlayer = secondPlayer;
     }
 
-    @JsonGetter
     public int getCurrentPlayerIndex() {
         return currentPlayerIndex;
     }
 
-    @JsonSetter
     public void setCurrentPlayerIndex(int currentPlayer) {
         this.currentPlayerIndex = currentPlayer;
     }
 
-    @JsonGetter
     public GameMap getFirstPlayerMap() {
         return firstPlayerMap;
     }
 
-    @JsonSetter
     public void setFirstPlayerMap(GameMap firstPlayerMap) {
         this.firstPlayerMap = firstPlayerMap;
     }
 
-    @JsonGetter
     public GameMap getSecondPlayerMap() {
         return secondPlayerMap;
     }
 
-    @JsonSetter
     public void setSecondPlayerMap(GameMap secondPlayerMap) {
         this.secondPlayerMap = secondPlayerMap;
     }
@@ -104,5 +93,17 @@ public class GameState {
         } else {
             currentPlayerIndex = 2;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "GameState{" +
+                "firstPlayer=" + firstPlayer +
+                ", secondPlayer=" + secondPlayer +
+                ", firstPlayerMap=" + firstPlayerMap +
+                ", secondPlayerMap=" + secondPlayerMap +
+                ", currentPlayerIndex=" + currentPlayerIndex +
+                ", currentMoveType=" + currentMoveType +
+                '}';
     }
 }

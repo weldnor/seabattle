@@ -5,6 +5,9 @@ public class Cell implements Cloneable {
     private CellType type;
     private Point point;
 
+    public Cell() {
+    }
+
     public Cell(CellType type, Point point) {
         this.type = type;
         this.point = point;

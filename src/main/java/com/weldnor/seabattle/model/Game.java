@@ -10,6 +10,9 @@ public class Game {
 
     private GameState state = new GameState();
 
+    public Game() {
+    }
+
     public Game(Player firstPlayer, Player secondPlayer) {
         state.setFirstPlayer(firstPlayer);
         state.setSecondPlayer(secondPlayer);
@@ -123,8 +126,16 @@ public class Game {
         return state.getFirstPlayer();
     }
 
+    public void setFirstPlayer(Player player) {
+        state.setFirstPlayer(player);
+    }
+
     public Player getSecondPlayer() {
         return state.getSecondPlayer();
+    }
+
+    public void setSecondPlayer(Player player) {
+        state.setSecondPlayer(player);
     }
 
     public Player getCurrentPlayer() {
