@@ -189,8 +189,6 @@ public class Engine {
         }
         String json = builder.toString();
 
-        System.out.println(json);
-
         ObjectMapper objectMapper = new ObjectMapper();
 
         SimpleModule module = new SimpleModule("my_module");
